@@ -1,18 +1,22 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base:15.0.1
 FROM ${BUILD_FROM}
 
+# Set shell options for better error handling
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+
 # Set Guacamole version (update this to latest stable version)
 ENV GUACAMOLE_VERSION=1.5.5 \
     GUACAMOLE_HOME=/app/guacamole \
     CATALINA_HOME=/usr/local/tomcat \
     POSTGRES_VERSION=15
 
-# Install runtime dependencies (ARM-compatible versions)
-RUN apk add --no-cache \
+# Update repositories and install runtime dependencies (ARM-compatible versions)
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache \
     postgresql${POSTGRES_VERSION} \
     postgresql${POSTGRES_VERSION}-client \
     openjdk17-jre-headless \
-    tomcat-native \
     freerdp \
     libssh2 \
     libvncserver \
@@ -25,12 +29,13 @@ RUN apk add --no-cache \
     libpng \
     libwebp \
     libwebsockets \
-    pulseaudio \
+    pulseaudio-libs \
     su-exec \
     && rm -rf /var/cache/apk/*
 
 # Install build dependencies temporarily (reduced parallelism for ARM)
-RUN apk add --no-cache --virtual .build-deps \
+RUN apk update && \
+    apk add --no-cache --virtual .build-deps \
     build-base \
     cairo-dev \
     libjpeg-turbo-dev \
@@ -135,11 +140,11 @@ LABEL \
     io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
     io.hass.version="${BUILD_VERSION}" \
-    maintainer="d-two <the.dtwo@gmail.com>" \
+    maintainer="Grayson Adams <graysoncadams@gmail.com>" \
     org.opencontainers.image.title="${BUILD_NAME}" \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
-    org.opencontainers.image.vendor="Home Assistant Add-ons" \
-    org.opencontainers.image.authors="d-two <the.dtwo@gmail.com>" \
+    org.opencontainers.image.vendor="Grayson Adams" \
+    org.opencontainers.image.authors="Grayson Adams <graysoncadams@gmail.com>" \
     org.opencontainers.image.licenses="Apache-2.0" \
     org.opencontainers.image.url="https://github.com/${BUILD_REPOSITORY}" \
     org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
