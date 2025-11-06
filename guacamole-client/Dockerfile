@@ -10,9 +10,8 @@ ENV GUACAMOLE_VERSION=1.5.5 \
     CATALINA_HOME=/usr/local/tomcat \
     POSTGRES_VERSION=15
 
-# Update repositories and install runtime dependencies (ARM-compatible versions)
+# Install all dependencies in a single layer to avoid version conflicts
 RUN apk update && \
-    apk upgrade && \
     apk add --no-cache \
     postgresql${POSTGRES_VERSION} \
     postgresql${POSTGRES_VERSION}-client \
@@ -34,8 +33,7 @@ RUN apk update && \
     && rm -rf /var/cache/apk/*
 
 # Install build dependencies temporarily (reduced parallelism for ARM)
-RUN apk update && \
-    apk add --no-cache --virtual .build-deps \
+RUN apk add --no-cache --virtual .build-deps \
     build-base \
     cairo-dev \
     libjpeg-turbo-dev \
