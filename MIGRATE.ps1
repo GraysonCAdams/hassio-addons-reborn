@@ -174,7 +174,7 @@ if ($DryRun) {
     Write-Host "       git add -A"
     Write-Host "       git commit -m 'Restructure to single-addon repository'"
     Write-Host "  4. Push to new repository:"
-    Write-Host "       git remote set-url origin https://github.com/GraysonCAdams/hassio-guacamole-client"
+    Write-Host "       git remote set-url origin https://github.com/graysoncadams/hassio-guacamole-client"
     Write-Host "       git push -u origin main"
     Write-Host "  5. Verify GitHub Actions build succeeds"
     Write-Host "  6. Make GHCR package public (Settings > Packages)"

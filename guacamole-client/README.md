@@ -54,7 +54,7 @@ In Home Assistant:
 2. Click the **⋮** menu (top right) → **Repositories**
 3. Add this URL:
    ```
-   https://github.com/GraysonCAdams/hassio-guacamole-client
+   https://github.com/graysoncadams/hassio-guacamole-client
    ```
 4. Click **Add** → **Close**
 
@@ -207,8 +207,8 @@ Contributions welcome! Please:
 
 ## Support
 
-- **Issues:** [GitHub Issues](https://github.com/GraysonCAdams/hassio-guacamole-client/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/GraysonCAdams/hassio-guacamole-client/discussions)
+- **Issues:** [GitHub Issues](https://github.com/graysoncadams/hassio-guacamole-client/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/graysoncadams/hassio-guacamole-client/discussions)
 - **Documentation:** See docs listed above
 
 ## Acknowledgments
@@ -220,11 +220,11 @@ Contributions welcome! Please:
 ---
 
 **Maintainer:** Grayson Adams  
-**Repository:** [GraysonCAdams/hassio-guacamole-client](https://github.com/GraysonCAdams/hassio-guacamole-client)
+**Repository:** [graysoncadams/hassio-guacamole-client](https://github.com/graysoncadams/hassio-guacamole-client)
 
-[releases-shield]: https://img.shields.io/github/release/GraysonCAdams/hassio-guacamole-client.svg
-[releases]: https://github.com/GraysonCAdams/hassio-guacamole-client/releases
-[license-shield]: https://img.shields.io/github/license/GraysonCAdams/hassio-guacamole-client.svg
+[releases-shield]: https://img.shields.io/github/release/graysoncadams/hassio-guacamole-client.svg
+[releases]: https://github.com/graysoncadams/hassio-guacamole-client/releases
+[license-shield]: https://img.shields.io/github/license/graysoncadams/hassio-guacamole-client.svg
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg

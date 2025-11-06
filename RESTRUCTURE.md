@@ -33,7 +33,7 @@ hassio-guacamole-client/  (NEW repo name)
 ```bash
 # On GitHub: Create new repository
 # Name: hassio-guacamole-client
-# Owner: GraysonCAdams
+# Owner: graysoncadams
 # Description: Apache Guacamole 1.5.5 WiFi-optimized Home Assistant Add-on
 ```
 
@@ -43,7 +43,7 @@ hassio-guacamole-client/  (NEW repo name)
 ```powershell
 # In a new directory
 cd ~
-git clone https://github.com/GraysonCAdams/hassio-guacamole-client.git
+git clone https://github.com/graysoncadams/hassio-guacamole-client.git
 cd hassio-guacamole-client
 
 # Copy files from old repo
@@ -70,13 +70,13 @@ Get-ChildItem guacamole-client | Move-Item -Destination . -Force
 Remove-Item -Recurse -Force baikal, guacamole, guacamole-server, hpessa, jdownloader2, mediaelch, oscam, ps3netsrv, tvheadend, guacamole-client
 
 # Update git remote
-git remote set-url origin https://github.com/GraysonCAdams/hassio-guacamole-client.git
+git remote set-url origin https://github.com/graysoncadams/hassio-guacamole-client.git
 ```
 
 ### Step 3: Update Documentation References
 
 Files already updated with new repository path:
-- ✅ `repository.json` → `GraysonCAdams/hassio-guacamole-client`
+- ✅ `repository.json` → `graysoncadams/hassio-guacamole-client`
 - ✅ `config.json` → `ghcr.io/graysoncadams/hassio-guacamole-client-wifi`
 - ✅ `.github/workflows/build-guacamole-client.yml` → Uses `github.repository_owner` (auto-updates)
 
@@ -86,7 +86,7 @@ Files that need manual updates:
 - `SETUP-GUIDE.md` - Update clone/install instructions
 - `BUILD.md` - Update repository paths
 - `CHANGELOG.md` - Update image references
-- All other .md files - Search for `d-two` and replace with `GraysonCAdams`
+- All other .md files - Search for `d-two` and replace with `graysoncadams`
 
 ### Step 4: Update Workflow Path
 
@@ -130,13 +130,13 @@ Remove-Item -Recurse -Force guacamole-client  # After moving contents out
 ## New Repository URL
 
 **Old**: `https://github.com/d-two/hassio-addons`
-**New**: `https://github.com/GraysonCAdams/hassio-guacamole-client`
+**New**: `https://github.com/graysoncadams/hassio-guacamole-client`
 
 ## Home Assistant Installation
 
 Users will add the repository:
 ```
-https://github.com/GraysonCAdams/hassio-guacamole-client
+https://github.com/graysoncadams/hassio-guacamole-client
 ```
 
 The `repository.json` file at the root tells Home Assistant:
@@ -170,7 +170,7 @@ The `repository.json` file at the root tells Home Assistant:
 ```powershell
 # Create and setup new repo
 cd ~\repos
-git clone https://github.com/GraysonCAdams/hassio-guacamole-client.git
+git clone https://github.com/graysoncadams/hassio-guacamole-client.git
 cd hassio-guacamole-client
 
 # Copy everything from old repo's guacamole-client folder
