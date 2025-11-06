@@ -20,7 +20,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/hassio-guacamole-client-wifi
+  IMAGE_NAME: ${{ format('{0}/{1}', toLower(github.repository_owner), 'hassio-guacamole-client-wifi') }}
 
 jobs:
   build:
