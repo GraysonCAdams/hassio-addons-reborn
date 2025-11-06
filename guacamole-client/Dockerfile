@@ -11,9 +11,12 @@ ENV GUACAMOLE_VERSION=1.5.5 \
     POSTGRES_VERSION=15
 
 # Install all dependencies (runtime + build) in a single layer to avoid version conflicts
-# Allow upgrades to resolve musl/openssl version conflicts between base image and -dev packages
+# Strip version pins from /etc/apk/world so musl/libssl upgrades are allowed, then upgrade base before installing
 RUN apk update && \
-    apk add --no-cache --upgrade \
+    awk '{gsub(/=.*/,""); print}' /etc/apk/world > /tmp/world && \
+    mv /tmp/world /etc/apk/world && \
+    apk upgrade --no-cache && \
+    apk add --no-cache \
     postgresql${POSTGRES_VERSION} \
     postgresql${POSTGRES_VERSION}-client \
     openjdk17-jre-headless \
