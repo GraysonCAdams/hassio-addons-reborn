@@ -126,8 +126,9 @@ RUN chmod -R 755 /etc/cont-init.d \
     && chmod -R 755 /etc/services.d \
     && chmod +x /usr/local/bin/optimize-guacamole.sh
 
-# Create postgres user
-RUN addgroup -S postgres && adduser -S -G postgres postgres \
+# Create postgres user if not already provisioned by base image
+RUN if ! getent group postgres > /dev/null; then addgroup -S postgres; fi \
+    && if ! id postgres > /dev/null 2>&1; then adduser -S -G postgres postgres; fi \
     && mkdir -p /run/postgresql \
     && chown -R postgres:postgres /run/postgresql \
     && chown -R postgres:postgres /var/lib/postgresql
