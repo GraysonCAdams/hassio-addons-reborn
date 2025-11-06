@@ -29,7 +29,7 @@ RUN apk update && \
     libpng \
     libwebp \
     libwebsockets \
-    pulseaudio-libs \
+    libpulse \
     su-exec \
     && rm -rf /var/cache/apk/*
 
