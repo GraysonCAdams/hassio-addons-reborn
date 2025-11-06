@@ -10,7 +10,7 @@ ENV GUACAMOLE_VERSION=1.5.5 \
     CATALINA_HOME=/usr/local/tomcat \
     POSTGRES_VERSION=15
 
-# Install all dependencies in a single layer to avoid version conflicts
+# Install all dependencies (runtime + build) in a single layer to avoid version conflicts
 RUN apk update && \
     apk add --no-cache \
     postgresql${POSTGRES_VERSION} \
@@ -30,10 +30,6 @@ RUN apk update && \
     libwebsockets \
     libpulse \
     su-exec \
-    && rm -rf /var/cache/apk/*
-
-# Install build dependencies temporarily (reduced parallelism for ARM)
-RUN apk add --no-cache --virtual .build-deps \
     build-base \
     cairo-dev \
     libjpeg-turbo-dev \
@@ -97,8 +93,25 @@ RUN wget -q "https://downloads.apache.org/guacamole/${GUACAMOLE_VERSION}/binary/
     && cp guacamole-auth-jdbc-${GUACAMOLE_VERSION}/postgresql/schema/*.sql /tmp/ \
     && rm -rf guacamole-auth-jdbc-${GUACAMOLE_VERSION}*
 
-# Cleanup build dependencies
-RUN apk del .build-deps \
+# Cleanup build dependencies and temp files
+RUN apk del \
+    build-base \
+    cairo-dev \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    libwebsockets-dev \
+    freerdp-dev \
+    pango-dev \
+    libssh2-dev \
+    libvncserver-dev \
+    pulseaudio-dev \
+    libtool \
+    autoconf \
+    automake \
+    wget \
+    openjdk17 \
+    maven \
     && rm -rf /tmp/* /var/cache/apk/*
 
 # Copy root filesystem
