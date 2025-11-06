@@ -4,10 +4,7 @@
   "slug": "guacamole-client-wifi",
   "description": "Apache Guacamole 1.5.5 - Optimized for WiFi/cross-network connections and Raspberry Pi 4. Clientless remote desktop gateway supporting VNC, RDP, and SSH over HTML5.",
   "arch": [
-    "aarch64",
-    "amd64",
-    "armhf",
-    "armv7" 
+    "aarch64"
   ],
   "url": "https://guacamole.apache.org/",
   "webui": "http://[HOST]:[PORT:8080]",

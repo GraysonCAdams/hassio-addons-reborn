@@ -32,9 +32,6 @@ jobs:
       matrix:
         architecture:
           - aarch64
-          - amd64
-          - armhf
-          - armv7
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -68,18 +65,6 @@ jobs:
             aarch64)
               echo "platform=linux/arm64" >> $GITHUB_OUTPUT
               echo "build_arch=aarch64" >> $GITHUB_OUTPUT
-              ;;
-            amd64)
-              echo "platform=linux/amd64" >> $GITHUB_OUTPUT
-              echo "build_arch=amd64" >> $GITHUB_OUTPUT
-              ;;
-            armhf)
-              echo "platform=linux/arm/v6" >> $GITHUB_OUTPUT
-              echo "build_arch=armhf" >> $GITHUB_OUTPUT
-              ;;
-            armv7)
-              echo "platform=linux/arm/v7" >> $GITHUB_OUTPUT
-              echo "build_arch=armv7" >> $GITHUB_OUTPUT
               ;;
           esac
 
@@ -121,7 +106,4 @@ jobs:
       - name: Create and push manifest
         run: |
           docker buildx imagetools create -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-aarch64 \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-amd64 \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-armhf \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-armv7
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-aarch64
