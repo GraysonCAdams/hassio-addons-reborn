@@ -1,6 +1,6 @@
 {
   "name": "Guacamole-Client-WiFi",
-  "version": "1.5.5",
+  "version": "1.0.0",
   "slug": "guacamole-client-wifi",
   "description": "Apache Guacamole 1.5.5 - Optimized for WiFi/cross-network connections and Raspberry Pi 4. Clientless remote desktop gateway supporting VNC, RDP, and SSH over HTML5.",
   "arch": [

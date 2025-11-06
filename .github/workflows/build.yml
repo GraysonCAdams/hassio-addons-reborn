@@ -28,6 +28,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    outputs:
+      addon_version: ${{ steps.version.outputs.addon_version }}
     strategy:
       matrix:
         architecture:
@@ -35,6 +37,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Read add-on version
+        id: version
+        run: |
+          VERSION=$(jq -r '.version' guacamole-client/config.json)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "addon_version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -56,6 +65,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest-${{ matrix.architecture }}
+            type=raw,value=${{ env.VERSION }}-${{ matrix.architecture }}
             type=sha,prefix=${{ matrix.architecture }}-
 
       - name: Set build architecture
@@ -106,4 +116,6 @@ jobs:
       - name: Create and push manifest
         run: |
           docker buildx imagetools create -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-aarch64
+            -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build.outputs.addon_version }} \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-aarch64 \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build.outputs.addon_version }}-aarch64
