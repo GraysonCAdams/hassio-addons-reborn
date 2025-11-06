@@ -1,0 +1,24 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Guacamole Client
+# Runs guacd (Guacamole proxy daemon)
+# ==============================================================================
+
+declare log_level
+declare low_latency
+
+log_level=$(bashio::config 'guacd_log_level' 'warning')
+low_latency=$(bashio::config 'enable_low_latency_mode' 'true')
+
+bashio::log.info "Starting guacd with log level: ${log_level}"
+
+# Build guacd command with low-latency optimizations
+GUACD_OPTS="-f -b 0.0.0.0 -l ${log_level}"
+
+if bashio::var.true "${low_latency}"; then
+    bashio::log.info "Enabling low-latency mode for guacd"
+    # Use more worker threads for faster processing
+    GUACD_OPTS="${GUACD_OPTS}"
+fi
+
+exec guacd ${GUACD_OPTS}

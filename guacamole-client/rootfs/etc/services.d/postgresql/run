@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Guacamole Client  
+# Runs PostgreSQL
+# ==============================================================================
+
+declare postgres_dir="/var/lib/postgresql/data"
+
+bashio::log.info "Starting PostgreSQL..."
+
+exec su-exec postgres postgres -D "${postgres_dir}"

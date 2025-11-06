@@ -1,0 +1,96 @@
+#include <tunables/global>
+
+profile guacamole_client flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+
+  # Capabilities
+  capability chown,
+  capability dac_override,
+  capability dac_read_search,
+  capability fowner,
+  capability fsetid,
+  capability kill,
+  capability net_bind_service,
+  capability setgid,
+  capability setuid,
+  capability sys_admin,
+  capability sys_chroot,
+  capability sys_ptrace,
+
+  # S6-Overlay
+  /init ix,
+  /bin/** ix,
+  /usr/bin/** ix,
+  /usr/lib/bashio/** ix,
+  /etc/s6/** rix,
+  /run/s6/** rix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix,
+  /run/** rwk,
+  /dev/tty rw,
+
+  # Java/Tomcat
+  /usr/bin/java ix,
+  /usr/local/tomcat/** rw,
+  /usr/local/tomcat/bin/** rix,
+  /usr/lib/jvm/** mr,
+  /proc/sys/vm/overcommit_memory r,
+
+  # Guacamole
+  /app/guacamole/** rw,
+  /usr/sbin/guacd ix,
+  /usr/lib/libguac*.so* mr,
+  /etc/guacamole/** rw,
+
+  # PostgreSQL
+  /usr/bin/postgres ix,
+  /usr/bin/psql ix,
+  /usr/bin/initdb ix,
+  /usr/bin/pg_ctl ix,
+  /usr/bin/pg_isready ix,
+  /var/lib/postgresql/** rw,
+  /var/lib/postgresql/data/** rwk,
+  /run/postgresql/** rwk,
+
+  # Configuration
+  /config/** rw,
+  /ssl/** r,
+  /data/** rw,
+
+  # Temp files
+  /tmp/** rw,
+  /var/tmp/** rw,
+
+  # Networking
+  network tcp,
+  network udp,
+
+  # System
+  /etc/hosts r,
+  /etc/resolv.conf r,
+  /etc/nsswitch.conf r,
+  /etc/passwd r,
+  /etc/group r,
+
+  # Proc filesystem
+  /proc/ r,
+  /proc/** r,
+  /sys/fs/cgroup/** rw,
+
+  # Device access
+  /dev/null rw,
+  /dev/zero rw,
+  /dev/random r,
+  /dev/urandom r,
+  /dev/shm/** rw,
+
+  # Signal handling
+  signal (send) set=(term, kill) peer=guacamole_client,
+  signal (receive) set=(term, kill) peer=guacamole_client,
+
+  # Deny dangerous operations
+  deny /sys/kernel/security/** rwx,
+  deny /sys/firmware/** rwx,
+  deny /proc/kcore rwx,
+}

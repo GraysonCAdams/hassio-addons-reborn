@@ -1,0 +1,64 @@
+{
+  "name": "Guacamole-Client-WiFi",
+  "version": "1.5.5",
+  "slug": "guacamole-client-wifi",
+  "description": "Apache Guacamole 1.5.5 - Optimized for WiFi/cross-network connections and Raspberry Pi 4. Clientless remote desktop gateway supporting VNC, RDP, and SSH over HTML5.",
+  "arch": [
+    "aarch64",
+    "amd64",
+    "armhf",
+    "armv7" 
+  ],
+  "url": "https://guacamole.apache.org/",
+  "webui": "http://[HOST]:[PORT:8080]",
+  "startup": "application",
+  "boot": "auto",
+  "panel_icon": "mdi:remote-desktop",
+  "ingress": true,
+  "ingress_port": 8080,
+  "image": "ghcr.io/graysoncadams/hassio-guacamole-client-wifi",
+  "options": {
+    "vnc_compression_level": 5,
+    "vnc_image_quality": 6,
+    "rdp_disable_compression": false,
+    "rdp_bitmap_cache": true,
+    "rdp_offscreen_cache": true,
+    "rdp_glyph_cache": true,
+    "color_depth": 16,
+    "guacd_log_level": "warning",
+    "java_opts": "-Xms256m -Xmx384m -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:GCTimeRatio=9",
+    "enable_low_latency_mode": false,
+    "enable_wifi_optimization": true,
+    "connection_retry_count": 5,
+    "connection_retry_wait": 2000
+  },
+  "ports": {
+    "8080/tcp": null
+  },
+  "ports_description": {
+    "8080/tcp": "Web interface (Not required for Home Assistant Ingress)"
+  },
+  "map": [
+    "ssl:ro",
+    "config:rw"
+  ],
+  "schema": {
+    "certfile": "str?",
+    "keyfile": "str?",
+    "ssl": "bool?",
+    "vnc_compression_level": "int(0,9)?",
+    "vnc_image_quality": "int(0,9)?",
+    "rdp_disable_compression": "bool?",
+    "rdp_bitmap_cache": "bool?",
+    "rdp_offscreen_cache": "bool?",
+    "rdp_glyph_cache": "bool?",
+    "color_depth": "list(16|24|32)?",
+    "guacd_log_level": "list(trace|debug|info|warning|error)?",
+    "java_opts": "str?",
+    "enable_low_latency_mode": "bool?",
+    "enable_wifi_optimization": "bool?",
+    "connection_retry_count": "int(1,10)?",
+    "connection_retry_wait": "int(1000,10000)?"
+  },
+  "hassio_role": "default"
+}
